@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FactoryInit.cs" />
+    <Compile Include="Helpers\IKeyGenerator.cs" />
     <Compile Include="Services\AESEncrypter.cs" />
     <Compile Include="Services\BenchmarkService.cs" />
     <Compile Include="Services\IBenchmarkTimer.cs" />

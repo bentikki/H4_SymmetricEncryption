@@ -10,7 +10,7 @@ namespace ConsoleVersion
     {
         static void Main(string[] args)
         {
-            IBenchmarkTimer timer = new BenchmarkStopWatch();
+            IBenchmarkTimer timer = FactoryInit.BenchmarkTimer;
             string menuSelection = string.Empty;
             int keySize = 0;
             int IVSize = 0;
@@ -54,8 +54,8 @@ namespace ConsoleVersion
                 }
 
                 
-                byte[] generatedKey = KeyGenerator.GenerateKey(keySize);
-                byte[] generatedIV = KeyGenerator.GenerateKey(IVSize);
+                byte[] generatedKey = FactoryInit.SecureKey.GenerateKey(keySize);
+                byte[] generatedIV = FactoryInit.SecureKey.GenerateKey(IVSize);
 
                 Console.WriteLine("Generated Key    : " + Convert.ToBase64String(generatedKey));
                 Console.WriteLine("Generated IV    : " + Convert.ToBase64String(generatedIV));
