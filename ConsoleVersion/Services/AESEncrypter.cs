@@ -15,21 +15,20 @@ namespace ConsoleVersion
 
         public byte[] Encrypt(byte[] dataToEncrypt, byte[] key, byte[] iv)
         {
-            using (var aes = new AesCryptoServiceProvider())
+            using (var cipher = new AesCryptoServiceProvider())
             {
-                aes.Mode = CipherMode.CBC;
-                aes.Padding = PaddingMode.PKCS7;
+                cipher.Mode = CipherMode.CBC; //Chose the Cipher MODE. Sat to CBC Cipher Block Chaining - to avoid possible dublicate values in the same encryption.
+                cipher.Padding = PaddingMode.PKCS7; // Choose paddingmode - Sat, as standard, to PKCS7
 
-                aes.Key = key;
-                aes.IV = iv;
+                cipher.Key = key;
+                cipher.IV = iv; // AES has to have an IV with a bit lenght of 16.
 
                 using (var memoryStream = new MemoryStream())
                 {
-                    var cryptoStream = new CryptoStream(memoryStream, aes.CreateEncryptor(),
-                        CryptoStreamMode.Write);
+                    var cryptoStream = new CryptoStream(memoryStream, cipher.CreateEncryptor(), CryptoStreamMode.Write);
 
                     cryptoStream.Write(dataToEncrypt, 0, dataToEncrypt.Length);
-                    cryptoStream.FlushFinalBlock();
+                    cryptoStream.FlushFinalBlock(); // Flushing to clear variables from memory.
 
                     return memoryStream.ToArray();
                 }
@@ -38,17 +37,17 @@ namespace ConsoleVersion
 
         public byte[] Decrypt(byte[] dataToDecrypt, byte[] key, byte[] iv)
         {
-            using (var aes = new AesCryptoServiceProvider())
+            using (var cipher = new AesCryptoServiceProvider())
             {
-                aes.Mode = CipherMode.CBC;
-                aes.Padding = PaddingMode.PKCS7;
+                cipher.Mode = CipherMode.CBC;
+                cipher.Padding = PaddingMode.PKCS7;
 
-                aes.Key = key;
-                aes.IV = iv;
+                cipher.Key = key;
+                cipher.IV = iv;
 
                 using (var memoryStream = new MemoryStream())
                 {
-                    var cryptoStream = new CryptoStream(memoryStream, aes.CreateDecryptor(),
+                    var cryptoStream = new CryptoStream(memoryStream, cipher.CreateDecryptor(),
                         CryptoStreamMode.Write);
 
                     cryptoStream.Write(dataToDecrypt, 0, dataToDecrypt.Length);

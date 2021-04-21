@@ -21,7 +21,6 @@ namespace ConsoleVersion
                 Console.Write("Input to encrypt: ");
                 string plaintTextInput = Console.ReadLine();
 
-
                 Console.WriteLine("Hashing menu:");
                 Console.WriteLine("1. DES");
                 Console.WriteLine("2. Triple DES");
